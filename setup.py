@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 setup(
-    name='dot_admin',
+    name='dot-admin-python',
     version='0.1.0',
     packages=find_packages(),
     include_package_data=True,
@@ -25,5 +25,8 @@ setup(
     ],
     install_requires=[
         'django>=4.0',
+        'djangorestframework>=3.12.4',
+        'redis>=5.0.0',
+        'django-redis>=5.0.0',
     ],
 )
