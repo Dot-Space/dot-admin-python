@@ -31,31 +31,20 @@ class BaseFilterFieldSerializer(serializers.ModelSerializer):
         return []
 
 
-def create_filter_value_serializer(serializer_model, *serializer_fields):
+def create_filter_field_serializer(filter_field_model, value_model, value_serializer_fields, *serializer_fields):
     """
     Создает класс сериализатора значений фильтра с переданными полями.
     """
     class GenericFilterValueSerializer(BaseFilterValueSerializer):
-        class Meta(BaseFilterValueSerializer.Meta):
-            model: Type[BaseFilterValue] = serializer_model
-            fields: tuple[str] = serializer_fields
-
-    return GenericFilterValueSerializer
-
-
-def create_filter_field_serializer(filter_field_model, value_model, value_serializer_fields, *serializer_fields):
-    """
-    Создает класс сериализатора для фильтров с переданными полями.
-    """
-    ValueSerializer = create_filter_value_serializer(value_model, *value_serializer_fields)
+        class Meta:
+            model: Type[BaseFilterValue] = value_model
+            fields: tuple[str] = value_serializer_fields
 
     class GenericFilterFieldSerializer(BaseFilterFieldSerializer):
-        class Meta(BaseFilterFieldSerializer.Meta):
+        values = GenericFilterValueSerializer(many=True, read_only=True)
+
+        class Meta:
             model: Type[BaseFilterField] = filter_field_model
             fields: tuple[str] = serializer_fields
-
-        def __init__(self, *args, **kwargs):
-            super().__init__(*args, **kwargs)
-            self.context['value_serializer'] = ValueSerializer
 
     return GenericFilterFieldSerializer
