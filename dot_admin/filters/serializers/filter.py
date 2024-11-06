@@ -51,8 +51,8 @@ def create_filter_field_serializer(filter_field_model, value_model, value_serial
 
     class GenericFilterFieldSerializer(BaseFilterFieldSerializer):
         class Meta(BaseFilterFieldSerializer.Meta):
-            model = filter_field_model
-            fields = serializer_fields
+            model: Type[BaseFilterField] = filter_field_model
+            fields: tuple[str] = serializer_fields
 
         def __init__(self, *args, **kwargs):
             super().__init__(*args, **kwargs)
