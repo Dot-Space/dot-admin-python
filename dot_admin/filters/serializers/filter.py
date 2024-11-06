@@ -31,6 +31,17 @@ class BaseFilterFieldSerializer(serializers.ModelSerializer):
         return []
 
 
+def create_filter_value_serializer(value_model, *value_serializer_fields):
+    """
+    Создает класс сериализатора полей фильтра.
+    """
+    class GenericFilterValueSerializer(BaseFilterValueSerializer):
+        class Meta:
+            model: Type[BaseFilterValue] = value_model
+            fields: tuple[str] = value_serializer_fields
+
+    return GenericFilterValueSerializer
+
 def create_filter_field_serializer(filter_field_model, value_model, value_serializer_fields, *serializer_fields):
     """
     Создает класс сериализатора значений фильтра с переданными полями.
