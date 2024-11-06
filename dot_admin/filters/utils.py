@@ -30,10 +30,10 @@ def get_filter_options(model: Type[Model], use_cache: bool) -> Dict[str, List[st
     filters = filter_model.objects.all()
 
     NaturalFilterFieldSerializer = create_filter_field_serializer(
-        filter_model, filter_model.values.field.model, ('name',), 'name', 'type'
+        filter_model, filter_model.values.field.model, ('name',), 'name', 'type', 'values'
     )
     OriginalFilterFieldSerializer = create_filter_field_serializer(
-        filter_model, filter_model.values.field.model, ('value',), 'code', 'type'
+        filter_model, filter_model.values.field.model, ('value',), 'code', 'type', 'values'
     )
 
     filter_options = NaturalFilterFieldSerializer(filters, many=True).data
