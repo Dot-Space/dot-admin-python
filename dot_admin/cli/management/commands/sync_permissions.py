@@ -5,7 +5,7 @@ from django.contrib.contenttypes.models import ContentType
 import importlib
 
 
-class SyncPermissions(BaseCommand):
+class Command(BaseCommand):
     """
     Команда для синхронизации кастомных прав из permissions.py в базу данных
     """
