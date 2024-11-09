@@ -2,7 +2,7 @@ from typing import Dict, List, Type
 
 from django.db.models import Model
 
-from .serializers.filter import create_filter_field_serializer
+from .serializers import create_filter_field_serializer
 
 
 def get_filter_options(model: Type[Model], use_cache: bool) -> Dict[str, List[str]]:

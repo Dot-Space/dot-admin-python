@@ -2,7 +2,7 @@ from typing import Type
 
 from rest_framework import serializers
 
-from dot_admin.filters.base_filter import BaseFilterField, BaseFilterValue
+from dot_admin.filters.fields import BaseFilterField, BaseFilterValue
 
 
 class BaseFilterValueSerializer(serializers.ModelSerializer):

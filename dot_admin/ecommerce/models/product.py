@@ -1,6 +1,6 @@
 from django.db import models
 
-from dot_admin.filters.base_filter import BaseFilterField
+from dot_admin.filters.fields import BaseFilterField
 from dot_admin.filters.base.model import FilterableModel
 
 
