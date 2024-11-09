@@ -6,7 +6,7 @@ import jwt
 from django.conf import settings
 
 
-class LoginView(APIView):
+class BaseLoginView(APIView):
     def post(self, request):
         serializer = BaseLoginSerializer(data=request.data)
         if serializer.is_valid():
