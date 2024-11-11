@@ -30,5 +30,6 @@ setup(
         'django-redis>=5.0.0',
         'requests>=2.26.0',
         'pyjwt>=2.3.0',
+        'seaborn>=0.11.2',
     ],
 )
