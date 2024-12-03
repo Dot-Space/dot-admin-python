@@ -9,7 +9,7 @@ from rest_framework.metadata import SimpleMetadata
 from django.core.exceptions import PermissionDenied
 from django.http import Http404
 
-from filters.utils import get_filter_options
+from dot_admin.filters.utils import get_filter_options
 
 
 class ExpandedMetaData(SimpleMetadata):
@@ -17,7 +17,7 @@ class ExpandedMetaData(SimpleMetadata):
     Расширенный класс генерации схемы для option request
     """
 
-    def determine_metadata(self, request: Type[Request], view: Type[GenericViewSet]) -> Dict[any]:
+    def determine_metadata(self, request: Type[Request], view: Type[GenericViewSet]) -> Dict[any, any]:
         """
         Get option scheme from ViewSet
         """
@@ -35,7 +35,7 @@ class ExpandedMetaData(SimpleMetadata):
                 metadata['filters'] = get_filter_options(view.queryset.model, True) if view.queryset is not None else {}
         return metadata
     
-    def determine_actions(self, request: Type[Request], view: Type[GenericViewSet]) -> Dict[any]:
+    def determine_actions(self, request: Type[Request], view: Type[GenericViewSet]) -> Dict[any, any]:
         """
         For generic class based views we return information about
         the fields that are accepted for 'PUT', 'POST' and 'GET' methods.
@@ -62,11 +62,11 @@ class ExpandedMetaData(SimpleMetadata):
 
         return actions
 
-    def determine_action_functions(self, view: Type[GenericViewSet]) -> Dict[str, Dict[str, Dict[any]]]:
+    def determine_action_functions(self, view: Type[GenericViewSet]) -> Dict[str, Dict[str, Dict[any, any]]]:
         """
         Генерация схем для action view функций в model viewset
         """
-        action_map: Dict[str, Dict[any]] = {}
+        action_map: Dict[str, Dict[any, any]] = {}
 
         for class_var_name, value in view.__class__.__dict__.items():
             splitted_var_name: List[str] = class_var_name.split('_')
@@ -119,7 +119,7 @@ class ExpandedMetaData(SimpleMetadata):
         
         return format_string(splitted_name)
     
-    def _get_serializer_info(self, serializer: Type[Serializer]) -> Dict[str, Dict[any]]:
+    def _get_serializer_info(self, serializer: Type[Serializer]) -> Dict[str, Dict[any, any]]:
         """
         Given an instance of a serializer, return a dictionary of metadata
         about its fields.
