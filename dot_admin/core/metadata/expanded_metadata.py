@@ -23,7 +23,7 @@ class ExpandedMetaData(SimpleMetadata):
         """
         metadata = {
             "name": view.get_view_name(),
-            "description": view.get_view_description(),
+            "description": view.__doc__ if view.__doc__ else "Автогенерируемое представление",
             "renders": [renderer.media_type for renderer in view.renderer_classes],
             "parses": [parser.media_type for parser in view.parser_classes],
         }
