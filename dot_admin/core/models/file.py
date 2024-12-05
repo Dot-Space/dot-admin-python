@@ -1,3 +1,5 @@
+from inspect import trace
+
 from django.db import models
 
 from dot_admin.core.models.choices import DataTypeChoices
@@ -11,6 +13,8 @@ class BaseFile(models.Model):
     name = models.CharField(
         'Название',
         max_length=255,
+        null=True,
+        blank=True.
     )
 
     file = models.FileField(
