@@ -14,7 +14,7 @@ class BaseFile(models.Model):
         'Название',
         max_length=255,
         null=True,
-        blank=True.
+        blank=True,
     )
 
     file = models.FileField(
