@@ -1,31 +1,33 @@
 from django.db import models
 
+from dot_admin.core.models.choices import DataTypeChoices
+
 
 class BaseFile(models.Model):
-    """Базовая модель файла."""
-
-    class Types(models.TextChoices):
-        """Типы файлов."""
-        IMAGE = 'image', 'Изображение'
-        DOCUMENT = 'document', 'Документ'
-        VIDEO = 'video', 'Видео'
+    """
+    Базовая модель файла.
+    """
 
     name = models.CharField(
         'Название',
         max_length=255,
     )
+
     file = models.FileField(
         'Файл',
     )
+
     is_main = models.BooleanField(
         'Основной',
         default=False,
     )
-    type = models.CharField(
-        'Тип',
-        max_length=50,
-    )
 
+    data_type = models.CharField(
+        'Тип',
+        choices=DataTypeChoices.choices,
+        max_length=8,
+        allow_null=True,
+    )
 
     class Meta:
         abstract = True

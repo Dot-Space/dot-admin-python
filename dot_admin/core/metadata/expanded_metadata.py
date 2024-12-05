@@ -7,15 +7,47 @@ from rest_framework import exceptions
 from rest_framework.request import clone_request, Request
 from rest_framework.metadata import SimpleMetadata
 from django.core.exceptions import PermissionDenied
+from rest_framework.utils.field_mapping import ClassLookupDict
 from django.http import Http404
 
 from dot_admin.filters.utils import get_filter_options
+from dot_admin.core.fields.files import DotFileField, DotFileListField
 
 
 class ExpandedMetaData(SimpleMetadata):
     """
     Расширенный класс генерации схемы для option request
+    работает подобно дефолтному, дополнен генерацией схем для
+    @action view функций и фильтров из query params
     """
+
+    label_lookup = ClassLookupDict({
+        serializers.Field: 'field',
+        serializers.BooleanField: 'boolean',
+        serializers.CharField: 'string',
+        serializers.UUIDField: 'string',
+        serializers.URLField: 'url',
+        serializers.EmailField: 'email',
+        serializers.RegexField: 'regex',
+        serializers.SlugField: 'slug',
+        serializers.IntegerField: 'integer',
+        serializers.FloatField: 'float',
+        serializers.DecimalField: 'decimal',
+        serializers.DateField: 'date',
+        serializers.DateTimeField: 'datetime',
+        serializers.TimeField: 'time',
+        serializers.DurationField: 'duration',
+        serializers.ChoiceField: 'choice',
+        serializers.MultipleChoiceField: 'multiple choice',
+        serializers.FileField: 'file upload',
+        serializers.ImageField: 'image upload',
+        serializers.ListField: 'list',
+        serializers.DictField: 'nested object',
+        serializers.Serializer: 'nested object',
+        # Custom dot fields
+        DotFileField: 'file object',
+        DotFileListField: 'file list object',
+    })
 
     def determine_metadata(self, request: Type[Request], view: Type[GenericViewSet]) -> Dict[any, any]:
         """
