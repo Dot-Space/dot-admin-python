@@ -26,7 +26,7 @@ class BaseFile(models.Model):
         'Тип',
         choices=DataTypeChoices.choices,
         max_length=8,
-        allow_null=True,
+        null=True,
     )
 
     class Meta:
