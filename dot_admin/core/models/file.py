@@ -20,12 +20,10 @@ class BaseFile(models.Model):
     file = models.FileField(
         'Файл',
     )
-
     is_main = models.BooleanField(
         'Основной',
         default=False,
     )
-
     data_type = models.CharField(
         'Тип',
         choices=DataTypeChoices.choices,
