@@ -3,10 +3,7 @@ import markdown
 
 
 class MarkdownField(CharField):
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
-        self.style = 'markdown'
-
+    # TODO: Создать MD editor для DRF
     def to_representation(self, value):
         return markdown.markdown(value)
 

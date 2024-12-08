@@ -9,3 +9,4 @@ class DataTypeChoices(models.TextChoices):
     IMAGE = 'image', 'Изображение'
     DOCUMENT = 'document', 'Документ'
     VIDEO = 'video', 'Видео'
+    AUDIO = 'audio', 'Аудио'
