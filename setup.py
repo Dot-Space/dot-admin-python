@@ -30,5 +30,6 @@ setup(
         'django-redis>=5.0.0',
         'requests>=2.26.0',
         'pyjwt>=2.3.0',
+        'markdown>=3.3',
     ],
 )
