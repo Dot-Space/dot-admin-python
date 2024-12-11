@@ -11,7 +11,7 @@ from rest_framework.utils.field_mapping import ClassLookupDict
 from django.http import Http404
 
 from dot_admin.filters.utils import get_filter_options
-from dot_admin.core.fields.files import DotFileField, DotFileListField
+import dot_admin.core.fields as dot_fields
 
 
 class ExpandedMetaData(SimpleMetadata):
@@ -45,8 +45,10 @@ class ExpandedMetaData(SimpleMetadata):
         serializers.DictField: 'nested object',
         serializers.Serializer: 'nested object',
         # Custom dot fields
-        DotFileField: 'file object',
-        DotFileListField: 'file list object',
+        dot_fields.DotFileField: 'file object',
+        dot_fields.DotFileListField: 'file list object',
+        dot_fields.MarkdownField: 'markdown',
+
     })
 
     def determine_metadata(self, request: Type[Request], view: Type[GenericViewSet]) -> Dict[any, any]:
