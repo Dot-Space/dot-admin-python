@@ -19,6 +19,7 @@ class DotFileSerializer(serializers.Serializer):
 
     def to_representation(self, instance):
         return {
+            'id': instance.id,
             'name': instance.name,
             'uri': self.get_uri(instance),
             'is_main': instance.is_main,
