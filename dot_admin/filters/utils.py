@@ -29,15 +29,11 @@ def get_filter_options(model: Type[Model], use_cache: bool) -> Dict[str, List[st
 
     filters = filter_model.objects.all()
 
-    NaturalFilterFieldSerializer = create_filter_field_serializer(
-        filter_model, filter_model.values.field.model, ('name',), 'name', 'type', 'values'
-    )
-    OriginalFilterFieldSerializer = create_filter_field_serializer(
-        filter_model, filter_model.values.field.model, ('value',), 'code', 'type', 'values'
+    FilterFieldSerializer = create_filter_field_serializer(
+        filter_model, filter_model.values.field.model, ('name', 'value'), 'name', 'code', 'type', 'values'
     )
 
-    filter_options = NaturalFilterFieldSerializer(filters, many=True).data
-    filter_options.extend(OriginalFilterFieldSerializer(filters, many=True).data)
+    filter_options = FilterFieldSerializer(filters, many=True).data
 
     if use_cache:
         cache.set(f'{app_name}_{model_name}_filters', filter_options, timeout=60 * 60 * 24)

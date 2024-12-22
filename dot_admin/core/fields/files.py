@@ -45,7 +45,7 @@ class DotFileListField(serializers.Field):
         return serializer.validated_data
 
 
-class DotFileField(serializers.Field):
+class DotFileField(serializers.FileField):
 
     def to_representation(self, value):
         request = self.context.get('request')
