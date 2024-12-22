@@ -9,6 +9,8 @@ class BaseFilterValueSerializer(serializers.ModelSerializer):
     """
     Базовый сериализатор для значений фильтра.
     """
+    filter_class_code = serializers.CharField(source='filter_class.code')
+
     class Meta:
         model: Type[BaseFilterValue] = BaseFilterValue
         fields: tuple[str] = []
